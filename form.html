@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Name Matching Calculator</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Name Matching Calculator</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <form id="matchForm">
+            <div class="mb-3">
+              <label for="girlName" class="form-label">Girl's Name</label>
+              <input type="text" class="form-control" id="girlName" required>
+            </div>
+            <div class="mb-3">
+              <label for="boyName" class="form-label">Boy's Name</label>
+              <input type="text" class="form-control" id="boyName" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate Match</button>
+          </form>
+          <div id="result" class="mt-4 text-center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+  function calculateMatch(name1, name2) {
+    const combinedName = (name1 + name2).toLowerCase();
+    const uniqueChars = new Set(combinedName);
+    const matchPercentage = (uniqueChars.size / combinedName.length) * 100;
+    return Math.round(matchPercentage);
+  }
+
+  document.getElementById('matchForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const girlName = document.getElementById('girlName').value;
+    const boyName = document.getElementById('boyName').value;
+    const matchPercentage = calculateMatch(girlName, boyName);
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `<h3>Match Percentage: <h3 id="match">${matchPercentage}%</h3></h3>`;
+    resultDiv.innerHTML += `<p class="mt-2">Remember, this is just for fun!</p>`;
+
+    document.getElementById('match').style.color = matchPercentage > 50 ? 'green' : 'red';
+  });
+</script>
+</body>
+</html>
